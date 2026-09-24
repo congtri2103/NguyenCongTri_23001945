@@ -1,6 +1,5 @@
 <?php
 
-// 1. CLASS CartItem
 class CartItem
 {
     private $name;
@@ -9,12 +8,11 @@ class CartItem
 
     public function __construct($name, $price, $quantity)
     {
-        // Kiểm tra giá sản phẩm
         if ($price <= 0) {
             throw new Exception("Giá sản phẩm phải lớn hơn 0.");
         }
 
-        // Kiểm tra số lượng
+
         if ($quantity <= 0) {
             throw new Exception("Số lượng sản phẩm phải lớn hơn 0.");
         }
@@ -24,25 +22,21 @@ class CartItem
         $this->quantity = $quantity;
     }
 
-    // Lấy tên sản phẩm
     public function getName()
     {
         return $this->name;
     }
 
-    // Lấy đơn giá
     public function getPrice()
     {
         return $this->price;
     }
 
-    // Lấy số lượng
     public function getQuantity()
     {
         return $this->quantity;
     }
 
-    // Tính thành tiền của sản phẩm
     public function getTotal()
     {
         return $this->price * $this->quantity;
@@ -50,12 +44,10 @@ class CartItem
 }
 
 
-// 2. CLASS ShoppingCart
 class ShoppingCart
 {
     private $items = [];
 
-    // Thêm sản phẩm vào giỏ hàng
     public function addItem($item)
     {
         if ($item instanceof CartItem) {
@@ -66,7 +58,6 @@ class ShoppingCart
         }
     }
 
-    // Xóa sản phẩm theo tên
     public function removeItem($name)
     {
         foreach ($this->items as $key => $item) {
@@ -75,7 +66,6 @@ class ShoppingCart
 
                 unset($this->items[$key]);
 
-                // Đánh lại chỉ số của mảng
                 $this->items = array_values($this->items);
 
                 echo "<p>Đã xóa sản phẩm: <b>$name</b></p>";
@@ -86,26 +76,21 @@ class ShoppingCart
         echo "<p>Không tìm thấy sản phẩm: <b>$name</b></p>";
     }
 
-    // Tính tổng tiền của giỏ hàng
     public function calculateTotal()
     {
         $total = 0;
 
         foreach ($this->items as $item) {
-            // Đúng yêu cầu đề:
-            // gọi getTotal() của CartItem
             $total += $item->getTotal();
         }
 
         return $total;
     }
 
-    // Hiển thị giỏ hàng
     public function displayCart()
     {
         echo "<h3>GIỎ HÀNG</h3>";
 
-        // Trường hợp giỏ hàng rỗng
         if (empty($this->items)) {
             echo "Giỏ hàng hiện đang trống.<br>";
             echo "Tổng tiền: 0 VNĐ<br>";
@@ -158,15 +143,12 @@ class ShoppingCart
 }
 
 
-// 3. CHƯƠNG TRÌNH CHÍNH
 
 try {
 
-    // Bước 1: Tạo ShoppingCart
     $cart = new ShoppingCart();
 
 
-    // Bước 2: Tạo ít nhất 4 CartItem
     $item1 = new CartItem("Laptop", 15000000, 1);
 
     $item2 = new CartItem("Chuột", 250000, 2);
@@ -176,7 +158,6 @@ try {
     $item4 = new CartItem("Tai nghe", 500000, 2);
 
 
-    // Bước 3: Thêm sản phẩm vào giỏ hàng
     $cart->addItem($item1);
 
     $cart->addItem($item2);
@@ -189,11 +170,9 @@ try {
     echo "<hr>";
 
 
-    // Bước 4: Hiển thị toàn bộ giỏ hàng
     $cart->displayCart();
 
 
-    // Bước 5: Tính và hiển thị tổng tiền
     echo "<h3>Tổng tiền giỏ hàng: "
         . number_format($cart->calculateTotal())
         . " VNĐ</h3>";
@@ -202,14 +181,11 @@ try {
     echo "<hr>";
 
 
-    // Bước 6: Xóa sản phẩm
     $cart->removeItem("Chuột");
 
 
-    // Bước 7: Hiển thị lại giỏ hàng
     $cart->displayCart();
 
-    // Test xóa sản phẩm không tồn tại
    
 
     echo "<hr>";
@@ -218,7 +194,6 @@ try {
 
     echo "<hr>";
 
-    // Test trường hợp giỏ hàng rỗng
     echo "<h3>KIỂM TRA GIỎ HÀNG RỖNG</h3>";
 
     $emptyCart = new ShoppingCart();

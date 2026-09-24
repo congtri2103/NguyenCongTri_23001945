@@ -1,8 +1,6 @@
 <?php
 
-// =====================================
-// CLASS MOVIE
-// =====================================
+
 class Movie
 {
     private $id;
@@ -26,7 +24,6 @@ class Movie
         $this->price = $price;
         $this->totalSeats = $totalSeats;
 
-        // Khi khởi tạo, số ghế còn lại = tổng số ghế
         $this->availableSeats = $totalSeats;
     }
 
@@ -40,7 +37,6 @@ class Movie
         return $this->title;
     }
 
-    // Đặt vé
     public function bookTicket($quantity)
     {
         if ($quantity <= 0) {
@@ -62,7 +58,6 @@ class Movie
         return true;
     }
 
-    // Hủy vé
     public function cancelTicket($quantity)
     {
         if ($quantity <= 0) {
@@ -87,19 +82,16 @@ class Movie
         return true;
     }
 
-    // Lấy số vé đã bán
     public function getSoldSeats()
     {
         return $this->totalSeats - $this->availableSeats;
     }
 
-    // Tính doanh thu
     public function getRevenue()
     {
         return $this->getSoldSeats() * $this->price;
     }
 
-    // Hiển thị thông tin phim
     public function displayInfo()
     {
         echo "<tr>";
@@ -117,11 +109,7 @@ class Movie
 }
 
 
-// ==================================================
-// CÁC FUNCTION XỬ LÝ DANH SÁCH PHIM
-// ==================================================
 
-// Tìm phim theo ID
 function findMovieById($movies, $id)
 {
     if (empty($movies)) {
@@ -138,7 +126,6 @@ function findMovieById($movies, $id)
 }
 
 
-// Tính tổng doanh thu
 function getTotalRevenue($movies)
 {
     if (empty($movies)) {
@@ -155,7 +142,6 @@ function getTotalRevenue($movies)
 }
 
 
-// Tìm phim bán được nhiều vé nhất
 function getBestSellingMovie($movies)
 {
     if (empty($movies)) {
@@ -174,15 +160,11 @@ function getBestSellingMovie($movies)
 }
 
 
-// ==================================================
-// CHƯƠNG TRÌNH CHÍNH
-// ==================================================
+
 
 try {
 
-    // ==================================================
-    // BƯỚC 1: TẠO 10 OBJECT MOVIE
-    // ==================================================
+
 
     $movie1 = new Movie(1, "Avengers", 100000, 100);
     $movie2 = new Movie(2, "Avatar", 120000, 80);
@@ -196,9 +178,7 @@ try {
     $movie10 = new Movie(10, "Joker", 85000, 130);
 
 
-    // ==================================================
-    // TẠO DANH SÁCH CÁC OBJECT MOVIE
-    // ==================================================
+    
 
     $movies = [
         $movie1,
@@ -217,9 +197,7 @@ try {
     echo "<h2>THỰC HIỆN ĐẶT / HỦY VÉ</h2>";
 
 
-    // ==================================================
-    // BƯỚC 2: ĐẶT VÉ CHO AVENGERS
-    // ==================================================
+    
 
     $avengers = findMovieById($movies, 1);
 
@@ -230,9 +208,7 @@ try {
     }
 
 
-    // ==================================================
-    // BƯỚC 3: ĐẶT VÉ CHO AVATAR
-    // ==================================================
+    
 
     $avatar = findMovieById($movies, 2);
 
@@ -243,9 +219,7 @@ try {
     }
 
 
-    // ==================================================
-    // ĐẶT THÊM VÉ CHO MỘT SỐ PHIM
-    // ==================================================
+    
 
     $movie3->bookTicket(20);
     $movie4->bookTicket(35);
@@ -257,18 +231,14 @@ try {
     $movie10->bookTicket(22);
 
 
-    // ==================================================
-    // BƯỚC 4: HỦY 5 VÉ AVENGERS
-    // ==================================================
+    
 
     if ($avengers != null) {
         $avengers->cancelTicket(5);
     }
 
 
-    // ==================================================
-    // BƯỚC 5: HIỂN THỊ TẤT CẢ PHIM
-    // ==================================================
+    
 
     echo "<h2>DANH SÁCH PHIM</h2>";
 
@@ -300,18 +270,14 @@ try {
     }
 
 
-    // ==================================================
-    // BƯỚC 6: TÍNH TỔNG DOANH THU
-    // ==================================================
+  
 
     echo "<h3>Tổng doanh thu tất cả phim: "
         . number_format(getTotalRevenue($movies))
         . " VNĐ</h3>";
 
 
-    // ==================================================
-    // BƯỚC 7: TÌM PHIM BÁN NHIỀU VÉ NHẤT
-    // ==================================================
+    
 
     $bestMovie = getBestSellingMovie($movies);
 
@@ -337,44 +303,35 @@ try {
     }
 
 
-    // ==================================================
-    // KIỂM TRA CÁC TRƯỜNG HỢP BẮT BUỘC
-    // ==================================================
 
     echo "<hr>";
 
     echo "<h2>KIỂM TRA TRƯỜNG HỢP ĐẶC BIỆT</h2>";
 
 
-    // Đặt vé <= 0
     echo "<b>1. Đặt số vé <= 0:</b><br>";
     $movie1->bookTicket(0);
 
     echo "<br>";
 
 
-    // Đặt vượt số ghế còn lại
     echo "<b>2. Đặt vé vượt quá số ghế còn lại:</b><br>";
     $movie1->bookTicket(1000);
 
     echo "<br>";
 
 
-    // Hủy vé <= 0
     echo "<b>3. Hủy số vé <= 0:</b><br>";
     $movie1->cancelTicket(0);
 
     echo "<br>";
 
-
-    // Hủy nhiều hơn số vé đã bán
     echo "<b>4. Hủy nhiều hơn số vé đã bán:</b><br>";
     $movie1->cancelTicket(100);
 
     echo "<br>";
 
 
-    // Tìm phim không tồn tại
     echo "<b>5. Tìm phim không tồn tại:</b><br>";
 
     $movieNotFound = findMovieById($movies, 999);
