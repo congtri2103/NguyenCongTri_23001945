@@ -85,19 +85,11 @@ Trong thư mục `Lab5`, chạy:
 ./run.sh
 ```
 
-Sau đó mở:
+Giữ cửa sổ Terminal đang chạy server và mở:
 
 ```text
 http://localhost:8000
 ```
-
-Nếu cổng `8000` đang được ứng dụng khác sử dụng, chạy trực tiếp bằng cổng khác:
-
-```bash
-/Applications/XAMPP/xamppfiles/bin/php -S localhost:8001 -t app
-```
-
-Sau đó mở `http://localhost:8001`.
 
 ## Sử dụng
 
@@ -125,7 +117,14 @@ dùng `./run.sh` hoặc PHP của XAMPP như hướng dẫn ở trên.
 
 ### Cổng đã được sử dụng
 
-Dừng ứng dụng đang chiếm cổng `8000` hoặc chạy dự án trên cổng `8001`.
+Kiểm tra tiến trình đang sử dụng cổng `8000`:
+
+```bash
+lsof -nP -iTCP:8000 -sTCP:LISTEN
+```
+
+Dừng tiến trình không cần thiết đang chiếm cổng rồi chạy lại `./run.sh`. Dự án
+này sử dụng thống nhất địa chỉ `http://localhost:8000`.
 
 ## Ghi chú
 
