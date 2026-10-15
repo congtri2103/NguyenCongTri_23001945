@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: #1f2937;
+    background: #f3f4f6;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: min(960px, calc(100% - 32px));
+    margin: 32px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-header nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-name {
+    color: #4b5563;
+}
+
+.logout-form {
+    display: inline;
+}
+
+.link-button {
+    padding: 0;
+    color: #2563eb;
+    background: transparent;
+    font: inherit;
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background: #e5e7eb;
+}
+
+.form-group {
+    margin: 16px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    max-width: 480px;
+    padding: 9px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+button, .button {
+    display: inline-block;
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+    background: #2563eb;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button-danger {
+    background: #dc2626;
+}
+
+.button-secondary {
+    color: #111827;
+    background: #d1d5db;
+}
+
+.error {
+    margin: 5px 0 0;
+    color: #b91c1c;
+}
+
+.error-box {
+    padding: 12px;
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+}
+
+.notice {
+    padding: 12px;
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #86efac;
+}
+
+.actions a {
+    margin-right: 8px;
+}
+
+footer {
+    margin-top: 28px;
+    color: #6b7280;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .page-header,
+    .page-header nav {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .container {
+        overflow-x: auto;
+    }
+}
