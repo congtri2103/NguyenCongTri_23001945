@@ -100,8 +100,8 @@ $maximumPrice = findMaxPrice($prices);
         </table>
 
         <div class="summary">
-            <p>Tổng giá trị<strong><?php echo number_format($totalPrice, 0, ",", "."); ?> đồng</strong></p>
-            <p>Giá cao nhất<strong><?php echo number_format($maximumPrice, 0, ",", "."); ?> đồng</strong></p>
+            <p>Tổng giá trị sản phẩm<strong><?php echo number_format($totalPrice, 0, ",", "."); ?> đồng</strong></p>
+            <p>Giá sản phẩm cao nhất<strong><?php echo number_format($maximumPrice, 0, ",", "."); ?> đồng</strong></p>
         </div>
     </main>
 </body>
