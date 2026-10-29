@@ -1,0 +1,49 @@
+.student-page { max-width: 620px; }
+.student-card, .editor { overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: #fff; box-shadow: 0 8px 24px #25402f0a; }
+.card-header { padding: 20px 26px; background: var(--primary); color: #fff; }
+.card-header p { margin: 0 0 5px; font-size: 13px; font-weight: 600; }
+.card-header h1 { margin: 0; font-size: clamp(23px, 5vw, 28px); line-height: 1.35; }
+.card-content { padding: 25px 26px; }
+.student-profile { display: flex; align-items: center; gap: 20px; margin-bottom: 18px; }
+.student-profile > div { min-width: 0; }
+.avatar { width: 88px; height: 88px; flex-shrink: 0; border: 4px solid #dfeee4; border-radius: 50%; background: #e9f3ed; object-fit: cover; }
+.profile-label { margin: 0 0 3px; color: var(--muted); font-size: 14px; }
+.student-profile h2 { margin: 0; font-size: 25px; line-height: 1.35; overflow-wrap: anywhere; }
+.student-info { margin: 0 0 20px; }
+.student-info > div { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid #e0e8e2; }
+.student-info dt { color: var(--muted); font-size: 15px; }
+.student-info dd { min-width: 0; margin: 0; font-size: 15px; font-weight: 650; text-align: right; overflow-wrap: anywhere; }
+.status { display: inline-block; padding: 4px 11px; border-radius: 6px; font-size: 13px; }
+.studying { color: #236437; background: #e4f3e8; }
+.stopped { color: #a13d30; background: #fbece9; }
+.gioi { --rank-color: #21663a; --rank-background: #eaf5ed; --rank-border: #bcdcc6; }
+.kha { --rank-color: #245b9c; --rank-background: #edf4ff; --rank-border: #c1d6f0; }
+.trung-binh { --rank-color: #895c0f; --rank-background: #fff7e5; --rank-border: #e8d39e; }
+.chua-dat { --rank-color: #a73830; --rank-background: #fff0ee; --rank-border: #edc6c1; }
+.academic-result { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 18px 20px; border: 1px solid var(--rank-border, #d5dfd8); border-radius: 10px; background: var(--rank-background, #f3f6f4); color: var(--rank-color, #3f5548); }
+.academic-result p { margin: 0 0 5px; font-size: 14px; }
+.score { font-size: 34px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.score small { font-size: 15px; font-weight: 500; }
+.classification { text-align: right; }
+.classification strong { font-size: 19px; }
+.intro-button { width: 100%; margin-top: 20px; }
+.introduction { margin-top: 14px; padding: 16px; border: 1px solid #dce6df; border-radius: 9px; background: #f4f8f5; }
+.introduction h3 { margin: 0 0 6px; font-size: 15px; }
+.introduction p { margin: 0; color: #445e4e; font-size: 14px; overflow-wrap: anywhere; }
+.editor { margin-top: 18px; }
+.editor summary { padding: 15px 22px; color: #185a41; font-size: 15px; font-weight: 650; }
+.editor[open] summary { border-bottom: 1px solid #dce6df; }
+.editor form { padding: 18px 22px 20px; }
+.field-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.range-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+.checkbox-field { display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; }
+output { color: var(--primary); font-weight: 700; }
+@media (max-width: 420px) {
+  .card-header, .card-content { padding: 20px; }
+  .student-profile { gap: 13px; }
+  .avatar { width: 72px; height: 72px; }
+  .student-profile h2 { font-size: 21px; }
+  .academic-result { padding: 15px; }
+  .classification strong { font-size: 17px; }
+  .field-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 1 - Thẻ thông tin sinh viên</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="../assets/vue.global.prod.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main id="app" class="page student-page" v-cloak>
+    <a class="back-link" href="../index.html">← Các bài thực hành</a>
+    <article class="student-card" aria-labelledby="page-title">
+      <header class="card-header">
+        <p>Bài 01</p>
+        <h1 id="page-title">Thẻ thông tin sinh viên</h1>
+      </header>
+      <div class="card-content">
+        <div class="student-profile">
+          <img class="avatar" v-bind:src="anhDaiDien"
+            v-bind:alt="'Ảnh đại diện của ' + hoTen" width="88" height="88" />
+          <div>
+            <p class="profile-label">Họ và tên</p>
+            <h2>{{ hoTen }}</h2>
+          </div>
+        </div>
+        <dl class="student-info">
+          <div><dt>Mã sinh viên</dt><dd>{{ maSinhVien }}</dd></div>
+          <div><dt>Lớp</dt><dd v-text="lop"></dd></div>
+          <div>
+            <dt>Trạng thái</dt>
+            <dd>
+              <span v-if="dangHoc" class="status studying">Đang học</span>
+              <span v-else class="status stopped">Đã nghỉ</span>
+            </dd>
+          </div>
+        </dl>
+        <section class="academic-result"
+          :class="{
+            'gioi': diemTrungBinh >= 8 && diemTrungBinh <= 10,
+            'kha': diemTrungBinh >= 6.5 && diemTrungBinh < 8,
+            'trung-binh': diemTrungBinh >= 5 && diemTrungBinh < 6.5,
+            'chua-dat': diemTrungBinh >= 0 && diemTrungBinh < 5
+          }" aria-label="Kết quả học tập" aria-live="polite">
+          <div><p>Điểm trung bình</p><strong class="score">{{ diemTrungBinh }} <small>/ 10</small></strong></div>
+          <div class="classification">
+            <p>Xếp loại</p>
+            <strong v-if="diemTrungBinh >= 8 && diemTrungBinh <= 10">Giỏi</strong>
+            <strong v-else-if="diemTrungBinh >= 6.5 && diemTrungBinh < 8">Khá</strong>
+            <strong v-else-if="diemTrungBinh >= 5 && diemTrungBinh < 6.5">Trung bình</strong>
+            <strong v-else-if="diemTrungBinh >= 0 && diemTrungBinh < 5">Chưa đạt</strong>
+            <strong v-else>Điểm không hợp lệ</strong>
+          </div>
+        </section>
+        <button class="button button-primary intro-button" type="button"
+          @click="hienGioiThieu = !hienGioiThieu" :aria-expanded="hienGioiThieu" aria-controls="introduction">
+          {{ hienGioiThieu ? 'Ẩn giới thiệu' : 'Hiện giới thiệu' }}
+        </button>
+        <section id="introduction" class="introduction" v-show="hienGioiThieu">
+          <h3>Giới thiệu bản thân</h3>
+          <p>{{ gioiThieu }}</p>
+        </section>
+      </div>
+    </article>
+    <details class="editor">
+      <summary>Thay đổi dữ liệu sinh viên</summary>
+      <form @submit.prevent>
+        <div class="field"><label for="full-name">Họ và tên</label><input id="full-name" type="text" v-model="hoTen" autocomplete="name" /></div>
+        <div class="field-row">
+          <div class="field"><label for="student-id">Mã sinh viên</label><input id="student-id" type="text" v-model="maSinhVien" /></div>
+          <div class="field"><label for="student-class">Lớp</label><input id="student-class" type="text" v-model="lop" /></div>
+        </div>
+        <div class="field"><label for="avatar-url">Đường dẫn ảnh đại diện</label><input id="avatar-url" type="text" v-model="anhDaiDien" spellcheck="false" /></div>
+        <div class="field">
+          <label for="average-score">Điểm trung bình: <output for="average-score">{{ diemTrungBinh }}</output></label>
+          <input id="average-score" type="range" min="0" max="10" step="0.1" v-model.number="diemTrungBinh" />
+          <div class="range-labels" aria-hidden="true"><span>0</span><span>5</span><span>10</span></div>
+        </div>
+        <label class="checkbox-field"><input type="checkbox" v-model="dangHoc" /> Sinh viên đang học</label>
+      </form>
+    </details>
+  </main>
+  <noscript>Vui lòng bật JavaScript để chạy bài thực hành.</noscript>
+</body>
+</html>

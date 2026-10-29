@@ -1,0 +1,52 @@
+.booking-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 24px; align-items: start; }
+.booking-form h2, .confirmation h2 { margin: 0 0 22px; font-size: 22px; }
+.booking-form .field { margin-bottom: 20px; }
+.ticket-options { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; min-width: 0; margin: 0 0 22px; padding: 0; border: 0; }
+.ticket-options legend { width: 100%; margin-bottom: 8px; font-size: 14px; font-weight: 650; }
+.ticket-option { display: flex; align-items: flex-start; gap: 9px; padding: 13px; border: 1px solid #bacdc0; border-radius: 9px; cursor: pointer; }
+.ticket-option.selected { border-color: #08745a; background: #ecf6f0; box-shadow: inset 0 0 0 1px #08745a; }
+.ticket-option input { width: 17px; height: 17px; margin: 4px 0 0; flex-shrink: 0; accent-color: #08745a; }
+.ticket-option strong, .combo-option strong { display: block; font-size: 14px; }
+.ticket-option span span, .combo-option span span { display: block; margin-top: 3px; color: #52665a; font-size: 12px; }
+.quantity-controls { display: grid; grid-template-columns: 44px 100px 44px; gap: 9px; width: fit-content; }
+.quantity-controls input { width: 100%; text-align: center; font-variant-numeric: tabular-nums; }
+.quantity-button { display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border: 1px solid #a9c2b3; border-radius: 7px; background: #f3f8f5; color: #185a41; font-size: 24px; font-weight: 600; cursor: pointer; }
+.quantity-button:hover:not(:disabled) { border-color: #08745a; background: #e2f0e8; }
+.quantity-button:disabled { background: #f1f3f1; border-color: #d9e1db; color: #87958d; cursor: not-allowed; }
+.quantity-field .error { margin: 8px 0 0; font-size: 12px; }
+.combo-option { display: flex; align-items: center; gap: 11px; margin-bottom: 18px; padding: 14px; border: 1px solid #cbdcd1; border-radius: 9px; background: #f5f9f6; cursor: pointer; }
+.combo-option input { width: 19px; height: 19px; margin: 0; flex-shrink: 0; accent-color: #08745a; }
+.form-actions { display: flex; gap: 12px; margin-top: 18px; }
+.form-actions .button { flex: 1; }
+.movie-heading { display: flex; align-items: center; gap: 13px; padding-bottom: 22px; border-bottom: 1px solid #dce7df; }
+.movie-icon { display: grid; flex-shrink: 0; width: 58px; height: 64px; place-items: center; border-radius: 12px; background: #e5f2eb; color: #08745a; }
+.movie-icon svg { width: 39px; height: 39px; }
+.summary-label { margin: 0 0 5px; color: #52665a; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+.movie-heading h2 { margin: 0; font-size: 21px; line-height: 1.35; }
+.summary-details { margin: 8px 0 18px; }
+.summary-details > div { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 0; border-bottom: 1px solid #e6ece7; }
+.summary-details dt { color: #52665a; font-size: 14px; }
+.summary-details dd { min-width: 0; margin: 0; font-size: 14px; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+.order-total { padding: 18px; border: 1px solid #bfdccc; border-radius: 10px; background: #eaf5ee; color: #0a6046; }
+.order-total span { display: block; margin-bottom: 5px; font-size: 14px; }
+.order-total strong { display: block; font-size: clamp(22px, 2.5vw, 29px); line-height: 1.35; font-variant-numeric: tabular-nums; }
+.confirmation { margin-top: 24px; border-color: #9fcdb2; }
+.confirmation-status { margin: 0 0 7px; color: #136c43; font-size: 14px; font-weight: 650; }
+.confirmation h2 { margin-bottom: 15px; }
+.confirmation-details { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px 28px; margin: 0; }
+.confirmation-details > div { min-width: 0; }
+.confirmation-details dt { margin-bottom: 3px; color: #52665a; font-size: 13px; }
+.confirmation-details dd { margin: 0; color: #233b30; font-size: 15px; font-weight: 600; overflow-wrap: anywhere; }
+.confirmation-details .confirmed-total { color: #08745a; font-size: 20px; }
+
+@media (max-width: 760px) {
+  .booking-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .order-total strong { font-size: 28px; }
+}
+
+@media (max-width: 420px) {
+  .ticket-options { grid-template-columns: minmax(0, 1fr); }
+  .form-actions { flex-direction: column-reverse; }
+  .confirmation-details { grid-template-columns: minmax(0, 1fr); }
+  .quantity-controls { grid-template-columns: 44px minmax(70px, 100px) 44px; }
+}

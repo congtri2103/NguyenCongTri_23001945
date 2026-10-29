@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài thực hành số 6 - Vue.js</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    .home { padding-top: 24px; }
+    .home > .badge { margin-bottom: 18px; }
+    .assignments { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .assignment { display: flex; flex-direction: column; align-items: flex-start; }
+    .assignment-number { display: grid; width: 42px; height: 42px; place-items: center; margin-bottom: 20px; border-radius: 12px; background: #e4f3e8; color: #08745a; font-size: 19px; font-weight: 750; }
+    .assignment h2 { margin-bottom: 10px; font-size: 21px; }
+    .assignment p { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+    .assignment .button { margin-top: auto; width: 100%; }
+    @media (max-width: 760px) { .assignments { grid-template-columns: 1fr; } .home { padding-top: 0; } }
+  </style>
+</head>
+<body>
+  <main class="page home">
+    <span class="badge">VUE.JS · LAB 6</span>
+    <header class="page-header">
+      <h1>Bài thực hành số 6</h1>
+      <p>Chọn một bài để xem và thử các chức năng.</p>
+    </header>
+    <div class="assignments">
+      <article class="panel assignment">
+        <span class="assignment-number" aria-hidden="true">01</span>
+        <h2>Thẻ thông tin sinh viên</h2>
+        <p>Hiển thị hồ sơ, xếp loại theo điểm và bật/tắt phần giới thiệu.</p>
+        <a class="button button-primary" href="Bai1/index.html">Mở bài 1 →</a>
+      </article>
+      <article class="panel assignment">
+        <span class="assignment-number" aria-hidden="true">02</span>
+        <h2>Đặt vé xem phim</h2>
+        <p>Chọn suất chiếu, loại vé, combo và nhận xác nhận đặt vé ngay trên trang.</p>
+        <a class="button button-primary" href="Bai2/index.html">Mở bài 2 →</a>
+      </article>
+      <article class="panel assignment">
+        <span class="assignment-number" aria-hidden="true">03</span>
+        <h2>Quản lý công việc</h2>
+        <p>Thêm, hoàn thành, xóa và lọc công việc cùng số lượng cập nhật trực tiếp.</p>
+        <a class="button button-primary" href="Bai3/index.html">Mở bài 3 →</a>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 2 - Đặt vé xem phim</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="../assets/vue.global.prod.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main id="app" class="page" v-cloak>
+    <a class="back-link" href="../index.html">← Về trang bài tập</a>
+    <header class="page-header">
+      <p class="badge">Bài 02</p>
+      <h1>Đặt vé xem phim</h1>
+      <p>Chọn suất chiếu, loại vé và xem tổng tiền ngay khi thay đổi.</p>
+    </header>
+
+    <div class="booking-layout">
+      <form class="panel booking-form" @submit.prevent="datVe" novalidate>
+        <h2>Thông tin đặt vé</h2>
+
+        <div class="field">
+          <label for="customer-name">Họ và tên khách hàng</label>
+          <input id="customer-name" type="text" v-model.trim="hoTen" autocomplete="name"
+            placeholder="Nhập họ và tên của bạn" required />
+        </div>
+
+        <div class="field">
+          <label for="showtime">Suất chiếu</label>
+          <select id="showtime" v-model="suatChieu">
+            <option value="14:00">14:00</option>
+            <option value="18:00">18:00</option>
+            <option value="20:30">20:30</option>
+          </select>
+        </div>
+
+        <fieldset class="ticket-options">
+          <legend>Loại vé</legend>
+          <label class="ticket-option" :class="{ selected: loaiVe === 'thuong' }">
+            <input type="radio" name="ticket-type" value="thuong" v-model="loaiVe" />
+            <span><strong>Vé thường</strong><span>70.000 đồng / vé</span></span>
+          </label>
+          <label class="ticket-option" :class="{ selected: loaiVe === 'vip' }">
+            <input type="radio" name="ticket-type" value="vip" v-model="loaiVe" />
+            <span><strong>Vé VIP</strong><span>100.000 đồng / vé</span></span>
+          </label>
+        </fieldset>
+
+        <div class="field quantity-field">
+          <label for="ticket-quantity">Số lượng vé</label>
+          <div class="quantity-controls">
+            <button class="quantity-button" type="button" @click="giamSoLuong"
+              :disabled="soLuongHopLe && soLuong === 1" aria-label="Giảm số lượng vé">−</button>
+            <input id="ticket-quantity" type="number" min="1" max="10" step="1" inputmode="numeric"
+              v-model.number="soLuong" :aria-invalid="!soLuongHopLe"
+              :aria-describedby="soLuongHopLe ? null : 'quantity-help'" />
+            <button class="quantity-button" type="button" @click="tangSoLuong"
+              :disabled="soLuongHopLe && soLuong === 10" aria-label="Tăng số lượng vé">+</button>
+          </div>
+          <p v-if="!soLuongHopLe" id="quantity-help" class="error">
+            Số lượng phải là số nguyên từ 1 đến 10.
+          </p>
+        </div>
+
+        <label class="combo-option">
+          <input type="checkbox" v-model="coCombo" />
+          <span><strong>Thêm combo bắp nước</strong><span>45.000 đồng / đơn đặt vé</span></span>
+        </label>
+
+        <div class="form-actions">
+          <button class="button button-secondary" type="button" @click="datLai">Đặt lại form</button>
+          <button class="button button-primary" type="submit" :disabled="!coTheDatVe">Đặt vé</button>
+        </div>
+      </form>
+
+      <aside class="panel order-summary" aria-labelledby="summary-heading">
+        <div class="movie-heading">
+          <span class="movie-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="12" width="28" height="23" rx="3" stroke="currentColor" stroke-width="2"/><path d="m6 12 26-6 2 7-27 6-1-7Z" fill="currentColor"/><path d="m12 11 4 5m5-7 4 5" stroke="#e5f2eb" stroke-width="2"/><path d="m17 23 8 4-8 4v-8Z" fill="currentColor"/></svg>
+          </span>
+          <div><p class="summary-label">BỘ PHIM CỦA BẠN</p><h2 id="summary-heading">{{ tenPhim }}</h2></div>
+        </div>
+
+        <dl class="summary-details">
+          <div><dt>Suất chiếu</dt><dd>{{ suatChieu }}</dd></div>
+          <div><dt>Loại vé</dt><dd>{{ loaiVe === 'vip' ? 'Vé VIP' : 'Vé thường' }}</dd></div>
+          <div><dt>Đơn giá</dt><dd>{{ dinhDangTien(giaVe) }}</dd></div>
+          <div><dt>Số lượng</dt><dd>{{ soLuongHopLe ? soLuong + ' vé' : 'Chưa hợp lệ' }}</dd></div>
+          <div><dt>Combo bắp nước</dt><dd>{{ coCombo ? '45.000 đồng' : 'Không chọn' }}</dd></div>
+        </dl>
+        <div class="order-total" aria-live="polite">
+          <span>Tổng thanh toán</span>
+          <strong>{{ soLuongHopLe ? dinhDangTien(tongTien) : '—' }}</strong>
+        </div>
+      </aside>
+    </div>
+
+    <section v-if="xacNhan" class="panel confirmation" aria-live="polite" aria-labelledby="confirmation-heading">
+      <p class="confirmation-status">✓ Đã ghi nhận đặt vé</p>
+      <h2 id="confirmation-heading">Thông tin xác nhận</h2>
+      <dl class="confirmation-details">
+        <div><dt>Khách hàng</dt><dd>{{ xacNhan.hoTen }}</dd></div>
+        <div><dt>Phim</dt><dd>{{ xacNhan.tenPhim }}</dd></div>
+        <div><dt>Suất chiếu</dt><dd>{{ xacNhan.suatChieu }}</dd></div>
+        <div><dt>Vé</dt><dd>{{ xacNhan.soLuong }} × {{ xacNhan.loaiVe }}</dd></div>
+        <div><dt>Combo bắp nước</dt><dd>{{ xacNhan.coCombo ? 'Có' : 'Không' }}</dd></div>
+        <div><dt>Tổng tiền</dt><dd class="confirmed-total">{{ dinhDangTien(xacNhan.tongTien) }}</dd></div>
+      </dl>
+    </section>
+  </main>
+  <noscript>Vui lòng bật JavaScript để chạy bài thực hành Vue.js.</noscript>
+</body>
+</html>
