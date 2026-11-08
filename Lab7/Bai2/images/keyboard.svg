@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="520" viewBox="0 0 640 520">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f1eee5"/><stop offset="1" stop-color="#e8e1d1"/></linearGradient>
+    <linearGradient id="case" x2="0" y2="1"><stop stop-color="#f6f0e4"/><stop offset="1" stop-color="#d4c7b2"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-40%" width="160%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+    <pattern id="keys" width="42" height="44" patternUnits="userSpaceOnUse"><rect x="3" y="4" width="34" height="35" rx="6" fill="#b3a58f"/><rect x="3" y="2" width="34" height="33" rx="6" fill="#faf6ee"/><path d="M13 11h5" stroke="#bcb4a6" stroke-width="2" stroke-linecap="round"/></pattern>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h640v520H0z"/>
+  <circle cx="320" cy="244" r="180" fill="#fff" opacity=".14"/>
+  <g transform="rotate(-13 320 270)">
+    <rect x="97" y="181" width="447" height="214" rx="23" fill="#796749" opacity=".2" filter="url(#shadow)"/>
+    <rect x="89" y="164" width="460" height="216" rx="22" fill="#bdaf99"/>
+    <rect x="89" y="153" width="460" height="216" rx="22" fill="url(#case)"/>
+    <rect x="102" y="167" width="434" height="186" rx="11" fill="#d2c7b4"/>
+    <path d="M109 172h420v132H109z" fill="url(#keys)"/>
+    <rect x="112" y="174" width="34" height="33" rx="6" fill="#a6ac97"/>
+    <rect x="490" y="219" width="34" height="75" rx="6" fill="#b8baab"/>
+    <rect x="112" y="308" width="41" height="34" rx="6" fill="#f8f4eb"/>
+    <rect x="158" y="308" width="36" height="34" rx="6" fill="#f8f4eb"/>
+    <rect x="199" y="308" width="179" height="34" rx="6" fill="#f8f4eb"/>
+    <rect x="383" y="308" width="36" height="34" rx="6" fill="#f8f4eb"/>
+    <rect x="424" y="308" width="36" height="34" rx="6" fill="#f8f4eb"/>
+    <rect x="465" y="308" width="60" height="34" rx="6" fill="#a6ac97"/>
+    <circle cx="522" cy="158" r="2" fill="#8d967c"/>
+  </g>
+</svg>
