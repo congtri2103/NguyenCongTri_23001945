@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bài thực hành quản lý sản phẩm bằng PHP, Vue.js và MySQL.">
+    <title>Quản lý sản phẩm | Lab 8</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script defer src="assets/vue.global.prod.js"></script>
+    <script defer src="assets/app.js"></script>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <header class="topbar">
+            <div class="brand"><span class="brand-icon" aria-hidden="true">▦</span> Sổ sản phẩm</div>
+            <span class="course">LAB 08 · PHP &amp; VUE.JS</span>
+        </header>
+
+        <main class="container">
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">QUẢN LÝ KHO HÀNG</p>
+                    <h1>Sản phẩm</h1>
+                    <p class="subtitle">Theo dõi đơn giá và số lượng tồn trong một nơi.</p>
+                </div>
+                <button class="button secondary" @click="refresh" :disabled="busy">↻ Làm mới</button>
+            </div>
+
+            <div v-if="error" class="notice error" role="alert">{{ error }}</div>
+            <div v-if="message" class="notice success" role="status">{{ message }}</div>
+
+            <div class="workspace">
+                <section class="panel list-panel" aria-labelledby="list-title" :aria-busy="loading">
+                    <div class="panel-heading">
+                        <h2 id="list-title">Danh sách sản phẩm</h2>
+                        <span class="count">{{ products.length }} sản phẩm</span>
+                    </div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col" class="number">Đơn giá</th>
+                                    <th scope="col" class="number">Số lượng tồn</th>
+                                    <th scope="col" class="actions">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="loading"><td colspan="4" class="empty">Đang tải sản phẩm…</td></tr>
+                                <tr v-else-if="!loaded"><td colspan="4" class="empty">Chưa tải được dữ liệu. Bấm Làm mới để thử lại.</td></tr>
+                                <tr v-else-if="products.length === 0"><td colspan="4" class="empty">Chưa có sản phẩm. Thêm sản phẩm đầu tiên bằng biểu mẫu.</td></tr>
+                                <template v-else>
+                                    <tr v-for="product in products" :key="product.id" :class="{ selected: editingId === product.id }">
+                                        <td class="product-name">{{ product.name }}</td>
+                                        <td class="number price">{{ formatPrice(product.price) }}</td>
+                                        <td class="number"><span class="stock" :class="{ out: product.stock === 0 }">{{ product.stock }}<span v-if="product.stock === 0"> · Hết hàng</span></span></td>
+                                        <td class="actions">
+                                            <div class="row-actions">
+                                                <button class="text-button" @click="editProduct(product)" :disabled="busy" :aria-label="'Sửa ' + product.name">Sửa</button>
+                                                <button class="text-button danger" @click="deleteProduct(product)" :disabled="busy" :aria-label="'Xóa ' + product.name">{{ deletingId === product.id ? 'Đang xóa…' : 'Xóa' }}</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="table-note">Đơn giá tính bằng đồng (VND).</p>
+                </section>
+
+                <section class="panel form-panel" aria-labelledby="form-title">
+                    <div class="panel-heading">
+                        <h2 id="form-title">{{ editingId === null ? 'Thêm sản phẩm' : 'Sửa sản phẩm' }}</h2>
+                        <span class="form-symbol" aria-hidden="true">{{ editingId === null ? '+' : '✎' }}</span>
+                    </div>
+                    <p class="form-description">{{ editingId === null ? 'Nhập thông tin để thêm vào danh sách.' : 'Cập nhật thông tin sản phẩm #' + editingId + '.' }}</p>
+                    <form @submit.prevent="saveProduct">
+                        <fieldset :disabled="busy">
+                            <div class="field">
+                                <label for="name">Tên sản phẩm</label>
+                                <input id="name" ref="nameInput" type="text" v-model="form.name" required placeholder="Ví dụ: Bút bi" autocomplete="off" aria-describedby="name-help">
+                                <small id="name-help">Từ 1 đến 100 ký tự sau khi bỏ khoảng trắng.</small>
+                            </div>
+                            <div class="field">
+                                <label for="price">Đơn giá <span>(đồng)</span></label>
+                                <input id="price" type="number" v-model.number="form.price" min="1" max="2147483647" step="1" required placeholder="Ví dụ: 5000" inputmode="numeric">
+                            </div>
+                            <div class="field">
+                                <label for="stock">Số lượng tồn</label>
+                                <input id="stock" type="number" v-model.number="form.stock" min="0" max="2147483647" step="1" required placeholder="Ví dụ: 20" inputmode="numeric">
+                            </div>
+                            <button type="submit" class="button primary save-button">{{ saving ? 'Đang lưu…' : 'Lưu sản phẩm' }}</button>
+                            <button v-if="editingId !== null" type="button" class="button secondary cancel-button" @click="cancelEdit">Hủy sửa</button>
+                        </fieldset>
+                    </form>
+                </section>
+            </div>
+            <footer>THỰC HÀNH PHP VÀ VUE.JS <span>·</span> Quản lý sản phẩm</footer>
+        </main>
+    </div>
+    <p id="startup-error" class="startup-error" hidden>Không tải được Vue.js. Kiểm tra file assets/vue.global.prod.js rồi tải lại trang.</p>
+    <noscript>Vui lòng bật JavaScript để sử dụng trang quản lý sản phẩm.</noscript>
+</body>
+</html>
